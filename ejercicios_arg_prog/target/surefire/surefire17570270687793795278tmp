@@ -1,0 +1,31 @@
+#surefire
+#Wed Mar 29 21:16:06 ART 2023
+childDelegation=false
+classPathUrl.0=D\:\\Cursos\\Argentina Programa 4.0\\Introduccion - Desarrollador Java\\Ejercicios\\ejercicios_arg_prog\\target\\test-classes
+classPathUrl.1=D\:\\Cursos\\Argentina Programa 4.0\\Introduccion - Desarrollador Java\\Ejercicios\\ejercicios_arg_prog\\target\\classes
+classPathUrl.2=C\:\\Users\\walke\\.m2\\repository\\org\\junit\\jupiter\\junit-jupiter-api\\5.6.0\\junit-jupiter-api-5.6.0.jar
+classPathUrl.3=C\:\\Users\\walke\\.m2\\repository\\org\\apiguardian\\apiguardian-api\\1.1.0\\apiguardian-api-1.1.0.jar
+classPathUrl.4=C\:\\Users\\walke\\.m2\\repository\\org\\opentest4j\\opentest4j\\1.2.0\\opentest4j-1.2.0.jar
+classPathUrl.5=C\:\\Users\\walke\\.m2\\repository\\org\\junit\\platform\\junit-platform-commons\\1.6.0\\junit-platform-commons-1.6.0.jar
+classPathUrl.6=C\:\\Users\\walke\\.m2\\repository\\org\\junit\\jupiter\\junit-jupiter-params\\5.6.0\\junit-jupiter-params-5.6.0.jar
+classPathUrl.7=C\:\\Users\\walke\\.m2\\repository\\org\\junit\\jupiter\\junit-jupiter-engine\\5.6.0\\junit-jupiter-engine-5.6.0.jar
+classPathUrl.8=C\:\\Users\\walke\\.m2\\repository\\org\\junit\\platform\\junit-platform-engine\\1.6.0\\junit-platform-engine-1.6.0.jar
+classPathUrl.9=C\:\\Users\\walke\\.m2\\repository\\org\\projectlombok\\lombok\\1.18.26\\lombok-1.18.26.jar
+enableAssertions=true
+excludes0=**/*$*
+failIfNoTests=false
+includes0=**/Test*.java
+includes1=**/*Test.java
+includes2=**/*TestCase.java
+isTrimStackTrace=true
+providerConfiguration=org.apache.maven.surefire.junit.JUnit3Provider
+reportsDirectory=D\:\\Cursos\\Argentina Programa 4.0\\Introduccion - Desarrollador Java\\Ejercicios\\ejercicios_arg_prog\\target\\surefire-reports
+runOrder=filesystem
+runStatisticsFile=D\:\\Cursos\\Argentina Programa 4.0\\Introduccion - Desarrollador Java\\Ejercicios\\ejercicios_arg_prog\\.surefire-DA48615D53FF022B3F533442839F67F21643A855
+surefireClassPathUrl.0=C\:\\Users\\walke\\.m2\\repository\\org\\apache\\maven\\surefire\\surefire-junit3\\2.12.4\\surefire-junit3-2.12.4.jar
+surefireClassPathUrl.1=C\:\\Users\\walke\\.m2\\repository\\org\\apache\\maven\\surefire\\surefire-api\\2.12.4\\surefire-api-2.12.4.jar
+tc.0=argprog.guia_2.ejercicios.Ejercicio_1aTest
+testClassesDirectory=D\:\\Cursos\\Argentina Programa 4.0\\Introduccion - Desarrollador Java\\Ejercicios\\ejercicios_arg_prog\\target\\test-classes
+testSuiteDefinitionTestSourceDirectory=D\:\\Cursos\\Argentina Programa 4.0\\Introduccion - Desarrollador Java\\Ejercicios\\ejercicios_arg_prog\\src\\test\\java
+useManifestOnlyJar=true
+useSystemClassLoader=true
