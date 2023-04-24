@@ -1,4 +1,4 @@
-package cosas;
+package clases;
 import java.time.LocalDate;
 
 public class Inscripcion {
