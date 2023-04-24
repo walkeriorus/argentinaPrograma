@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Materia {
-    private String nombre;
+    private final String nombre;
     private List<Materia> correlativas = new ArrayList<>();
 
     public Materia(String nombreMateria){
@@ -39,7 +39,7 @@ public class Materia {
                 correlativasAprobadas += 1;
             }
         }
-        boolean conclusion = (correlativasAprobadas<cantidadCorrelativas)? false : true;
+        boolean conclusion = (correlativasAprobadas<cantidadCorrelativas);
         return conclusion ;
     }
     //GETTERS
