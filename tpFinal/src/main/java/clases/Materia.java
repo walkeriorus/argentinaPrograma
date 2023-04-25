@@ -32,7 +32,10 @@ public class Materia {
         for(Materia matAprobada : estudiante.getMateriasAprobadas() ){
             materiasAprobadasAlumno.add(matAprobada.getNombreMateria());
         }
-
+        //Dentro del array con los nombres de las materias aprobadas por el alumno
+        //busco si coincide la cantidad de correlativas aprobadas del alumno con
+        //la cantidad de materias correlativas que tiene la materia a la que se
+        //quiere anotar
         for(String materia : materiasCorrelativas ){
             if(materiasAprobadasAlumno.contains(materia)){
                 correlativasAprobadas += 1;
@@ -47,5 +50,17 @@ public class Materia {
     }
     public List<Materia> getCorrelativas(){
         return this.correlativas;
+    }
+    public String getStringCorrelativas(){
+        //Devuelve la lista de correlativas como un único String
+        String stringCorrelativas = "";
+        List<String> correlativas = new ArrayList<String>();
+        for(Materia correlativa : this.correlativas ){
+            correlativas.add(correlativa.getNombreMateria());
+        }
+        //005B y 005D son los códigos unicode para los caracteres [ , ] respectivamente
+        stringCorrelativas = correlativas.toString().replaceAll("\\u005B|\\u005D", "");
+        correlativas = null;
+        return stringCorrelativas;
     }
 }

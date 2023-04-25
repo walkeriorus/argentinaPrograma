@@ -49,4 +49,15 @@ public class Materia {
     public List<Materia> getCorrelativas(){
         return this.correlativas;
     }
+    public String getStringCorrelativas(){
+        String stringCorrelativas = "";
+        List<String> correlativas = new ArrayList<String>();
+        for(Materia correlativa : this.correlativas ){
+            correlativas.add(correlativa.getNombreMateria());
+        }
+        //005B y 005D son los códigos unicode para los caracteres [ , ] respectivamente
+        stringCorrelativas = correlativas.toString().replaceAll("\\u005B|\\u005D", "");
+        correlativas = null;
+        return stringCorrelativas;
+    }
 }

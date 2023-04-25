@@ -41,6 +41,7 @@ public class ValidadorCorrelativas {
         materias.add(programacion);
         materias.add(pensamiento);
         materias.add(mateII);
+        
 
         //CREACION ALUMNOS
         Alumno walterPerez = new Alumno("Walter Perez", "7726");

@@ -30,6 +30,17 @@ public class Alumno {
     public List<Materia> getMateriasAprobadas(){
         return this.materiasAprobadas;
     }
+    public String getStringAprobadas(){
+        String stringMateriasAprobadas = "";
+        List<String> aprobadas = new ArrayList<String>();
+        for(Materia materia : this.materiasAprobadas ){
+            aprobadas.add(materia.getNombreMateria());
+        }
+        //005B y 005D son los códigos unicode para los caracteres [ , ] respectivamente
+        stringMateriasAprobadas = aprobadas.toString().replaceAll("\\u005B|\\u005D", "");
+        aprobadas = null;
+        return stringMateriasAprobadas;
+    }
     //SETTERS
     public void setNombre(String nombre){
         this.nombre = nombre;
