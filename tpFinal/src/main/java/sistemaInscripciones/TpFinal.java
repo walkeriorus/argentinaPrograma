@@ -3,6 +3,7 @@ import clases.Alumno;
 import clases.Inscripcion;
 import clases.Materia;
 import interfazDeUsuario.Gui;
+import database.Database;
 
 public class TpFinal {
     public static void main(String[] args) {
