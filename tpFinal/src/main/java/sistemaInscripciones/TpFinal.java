@@ -1,8 +1,8 @@
-package argprog.tpfinal;
+package sistemaInscripciones;
 import clases.Alumno;
 import clases.Inscripcion;
 import clases.Materia;
-import gui.Gui;
+import interfazDeUsuario.Gui;
 
 public class TpFinal {
     public static void main(String[] args) {
@@ -10,5 +10,11 @@ public class TpFinal {
         screen.setVisible(true);
         screen.setTitle("Inscripción a materias");
         screen.setLocationRelativeTo(null);
+    }
+    public void agregarMateria(){
+        //Agrega una materia a la base de datos de materias.
+    }
+    public void agregarAlumno(){
+        //Agrega un Alumno a la base de datos de alumnos.
     }
 }
