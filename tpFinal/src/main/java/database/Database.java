@@ -11,14 +11,14 @@ public class Database {
     private String dbDriverName ;
     private String dbName ;
     private String urlDB ;
-    private Connection conn;
+    private Connection conn = null;
 
     public Database() {
         this.urlServer = "jdbc:mysql://127.0.0.1:3312/";
         this.admin = "root";
         this.adminPass = "624531";
         this.dbDriverName = "com.mysql.cj.jdbc.Driver";
-        this.dbName = "prueba";
+        this.dbName = "tp_final";
         this.urlDB = this.urlServer + this.dbName;
     }
     //Constructores
@@ -40,13 +40,14 @@ public class Database {
     }
     //Métodos
     public Connection conectar(){
-        this.conn = null;
         try{
-            conn = DriverManager.getConnection(this.urlDB);
+            System.out.println("URLDB: "+ this.urlDB);
+            this.conn = DriverManager.getConnection(this.urlDB,this.admin,this.adminPass);
         }catch(SQLException sqlExcept ){
+            System.out.println("Fallo la conexión.");
             System.out.println(sqlExcept );
         }
-        return conn;
+        return this.conn;
     }
     public void desconectar(){
         try{
@@ -54,5 +55,8 @@ public class Database {
         }catch(SQLException sqlExcept ){
             System.out.println(sqlExcept);
         }
+    }
+    public String getDBName(){
+        return this.dbName;
     }
 }
