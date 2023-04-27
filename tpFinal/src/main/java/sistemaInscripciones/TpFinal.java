@@ -10,12 +10,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-//IMPORTS SIN USAR
-//import com.fasterxml.jackson.databind.ObjectMapper;
-//import java.sql.Connection;
-//import java.util.regex.Pattern;
-
 public class TpFinal {
+
     public static void agregarMateria(String nombre_materia) {
         Database db = new Database();
         db.conectar();
@@ -81,7 +77,8 @@ public class TpFinal {
                 System.out.println("No se pudo ejecutar el sql\nUsuario: " + nombre + " no creado.");
                 System.out.println(sqlExcept);
             }
-        }else{
+        }
+        else {
             System.out.println("El legajo: `" + legajo + "` no es un nro de legajo válido.\nUsuario no creado");
         }
 
@@ -95,43 +92,127 @@ public class TpFinal {
         return arrList;
     }
 
-    public static void verTodasLasMaterias(){
+    public static void verTodasLasMaterias() {
         Database db = new Database();
         db.conectar();
         Statement stmt = db.getStatement();
-        String sql = "SELECT nombre,correlativas FROM materias";
-        try{
+        String sql = "SELECT nombre,correlativas FROM `tp_final`.materias";
+        try {
             ResultSet rs = stmt.executeQuery(sql);
-            System.out.println("Cantidad de resultados en la consulta de la tabla `materias`: "+ rs.getFetchSize());
+//            System.out.println("Cantidad de resultados en la consulta de la tabla `materias`: "+ rs.getFetchSize());
+            while (rs.next()) {
+                String nombre = rs.getString("nombre");
+                String correlativas = rs.getString("correlativas");
+                System.out.println(String.format("Materia: %s\tCorrelativas: %s", nombre, correlativas));
+            }
             db.desconectar();
-        }catch(SQLException sqlExcept){
+
+        }
+        catch (SQLException sqlExcept) {
             System.out.println("No se pudieron obtener los resultados.");
-            System.out.println("Consulta que se intentó realizar: " + sql );
+            System.out.println("Consulta que se intentó realizar: " + sql);
             System.out.println(sqlExcept);
             System.out.println(sqlExcept.getCause());
         }
-        
+
     }
 
-    public static void verTodosLosAlumnos(){
+    public static void verTodosLosAlumnos() {
         Database db = new Database();
         db.conectar();
         Statement stmt = db.getStatement();
-        String sql = "SELECT * FROM alumnos";
-        try{
+        String sql = "SELECT * FROM `tp_final`.alumnos";
+        try {
             ResultSet rs = stmt.executeQuery(sql);
             System.out.println(rs.getFetchSize());
+            while (rs.next()) {
+                String legajo = rs.getString("legajo");
+                String nombre = rs.getString("nombre");
+                String materias_aprobadas = rs.getString("materias_aprobadas");
+                System.out.println(String.format("Alumno: %s\tLegajo: %s\nMaterias aprobadas: %s", nombre,legajo, materias_aprobadas));
+            }
             db.desconectar();
-        }catch(SQLException sqlExcept){
+        }
+        catch (SQLException sqlExcept) {
             System.out.println("Error");
             System.out.println(sqlExcept);
         }
 
     }
+
     public static boolean validarLegajo(String legajo) {
         //Válida que el String legajo sea un número que contenga de 1 a 5 digítos.
         //Si el String pasa la validación retorna true, sino false.
         return legajo.matches("[0-9]{1,5}");
+    }
+    public static String inscripcionAMateria(String nombre_alumno,String nombre_materia){
+        //MENSAJE
+        String msj = null;
+        //Obtengo los datos del alumno
+        ArrayList<String> datos_alumno = buscarAlumnoPorNombre(nombre_alumno);
+        ArrayList<String> datos_materia = buscarMateria(nombre_materia);
+        //CREACION DEL ALUMNO COMO OBJETO
+        ArrayList<Materia> materias_alumno = new ArrayList();
+        for(String nombre : datos_alumno.get(2).split(",")){
+            materias_alumno.add(new Materia(nombre));
+        }
+        Alumno alumno = new Alumno(datos_alumno.get(0),datos_alumno.get(1),materias_alumno);
+        //CREACION DE LA MATERIA COMO OBJETO
+        ArrayList<Materia> correlativas_materia = new ArrayList();
+        for(String nombre : datos_materia.get(1).split(",")){
+            correlativas_materia.add(new Materia(nombre));
+        }
+        Materia materia = new Materia(datos_materia.get(0),correlativas_materia);
+        //CREO UNA INSCRIPCION
+        Inscripcion inscripcion = new Inscripcion(alumno,materia);
+        if(inscripcion.aprobada()){
+            msj = "Inscripción aceptada";
+        }else{
+            msj = "Inscripción rechazada";
+        }
+        return msj;
+    }
+    public static ArrayList<String> buscarAlumnoPorNombre(String nombre_alumno){
+        //Si se encuentra el alumno se retornan sus datos en un ArrayList de Strings
+        //En el indice 0 el legajo, en el 1 el nombre, en el 2 sus materias aprobadas
+        //Si no se encuentra se retorna una ArrayList vacío
+
+        ArrayList<String> datos = new ArrayList();
+        Database db  = new Database();
+        db.conectar();
+        String sql = String.format("SELECT * FROM `tp_final`.alumnos WHERE nombre = \"%s\"", nombre_alumno);
+        try{
+            ResultSet rs = db.getStatement().executeQuery(sql);
+            if(rs.next()){
+                String legajo = rs.getString("legajo");
+                String nombre = rs.getString("nombre");
+                String materias = rs.getString("materias_aprobadas");
+                datos.add(legajo);
+                datos.add(nombre);
+                datos.add(materias);
+            }else{
+            }
+        }catch(SQLException sqlExc){}
+        db.desconectar();
+        return datos;
+    }
+    public static ArrayList<String> buscarMateria(String nombre_materia ){
+        ArrayList<String> datos = new ArrayList();
+        Database db  = new Database();
+        db.conectar();
+        String sql = String.format("SELECT * FROM `tp_final`.materias WHERE nombre = \"%s\"", nombre_materia);
+        try{
+            ResultSet rs = db.getStatement().executeQuery(sql);
+            if(rs.next()){
+                String nombre = rs.getString("nombre");
+                String correlativas = rs.getString("correlativas");
+                datos.add(nombre);
+                datos.add(correlativas);
+            }else{
+            }
+        }catch(SQLException sqlExc){}
+        db.desconectar();
+        return datos;
     }
     //
     //  MAIN
@@ -141,7 +222,7 @@ public class TpFinal {
         boolean running = true;
         int eleccion;
         while (running) {
-            System.out.println("1 - Agregar materia a la base de datos\n2 - Agregar alumno a la base de datos\n3 - Ver todos los alumnos\n4 - Ver todas las materias\n5 - SALIR ");
+            System.out.println("1 - Agregar materia a la base de datos\n2 - Agregar alumno a la base de datos\n3 - Ver todos los alumnos\n4 - Ver todas las materias\n5 - Inscripción a materia \n6 - SALIR ");
             eleccion = sc.nextInt();
             switch (eleccion) {
                 case 1:
@@ -183,6 +264,16 @@ public class TpFinal {
                     sc.reset();
                     break;
                 case 5:
+                    System.out.println("Ingrese su nombre: ");
+                    String nombre_alumno = sc.next();
+                    sc.reset();
+                    System.out.println("Ingrese el nombre de la materia: ");
+                    String materia = sc.next();
+                    sc.reset();
+                    String respuestaInscripcion = inscripcionAMateria(nombre_alumno, materia);
+                    System.out.println(respuestaInscripcion);
+                    break;
+                case 6:
                     running = false;
                     sc.reset();
                     System.out.println("Gracias por usar nuestro software.\nQue tenga un buen día.");
