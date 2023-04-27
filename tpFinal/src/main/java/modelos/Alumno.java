@@ -1,4 +1,4 @@
-package clases;
+package modelos;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -24,7 +24,7 @@ public class Alumno {
     public String getLegajo(){
         return this.legajo;
     }
-    public String getNombreAlumno(){
+    public String getNombre(){
         return this.nombre;
     }
     public List<Materia> getMateriasAprobadas(){

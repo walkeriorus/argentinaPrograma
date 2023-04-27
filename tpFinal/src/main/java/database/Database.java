@@ -3,6 +3,7 @@ package database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class Database {
     private String urlServer;
@@ -12,6 +13,7 @@ public class Database {
     private String dbName ;
     private String urlDB ;
     private Connection conn = null;
+    private Statement stmt = null;
 
     public Database() {
         this.urlServer = "jdbc:mysql://127.0.0.1:3312/";
@@ -39,15 +41,16 @@ public class Database {
         this.urlDB = this.urlServer + this.dbName;
     }
     //Métodos
-    public Connection conectar(){
+    public void conectar(){
         try{
             System.out.println("URLDB: "+ this.urlDB);
             this.conn = DriverManager.getConnection(this.urlDB,this.admin,this.adminPass);
+            //Crea un Statement automaticamente al llamar al método conectar;
+            this.createStatement();
         }catch(SQLException sqlExcept ){
             System.out.println("Fallo la conexión.");
             System.out.println(sqlExcept );
         }
-        return this.conn;
     }
     public void desconectar(){
         try{
@@ -56,7 +59,22 @@ public class Database {
             System.out.println(sqlExcept);
         }
     }
+    private void createStatement(){
+        try{
+            this.stmt = this.conn.createStatement();
+        }catch(SQLException sqlExcept){
+            System.out.println("No se creo el Statement.");
+            System.out.println(sqlExcept + "\nCódigo de error: "+sqlExcept.getErrorCode());
+        }
+    }
+    //GETTERS
+    public Connection getDBConn(){
+        return this.conn;
+    }
     public String getDBName(){
         return this.dbName;
+    }
+    public Statement getStatement(){
+        return this.stmt;
     }
 }
