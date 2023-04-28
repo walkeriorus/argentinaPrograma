@@ -43,7 +43,6 @@ public class Database {
     //Métodos
     public void conectar(){
         try{
-            System.out.println("URLDB: "+ this.urlDB);
             this.conn = DriverManager.getConnection(this.urlDB,this.admin,this.adminPass);
             //Crea un Statement automaticamente al llamar al método conectar;
             this.createStatement();

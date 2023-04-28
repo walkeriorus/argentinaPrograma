@@ -18,13 +18,12 @@ public class TpFinal {
         Materia materia_nueva = new Materia(nombre_materia);
         //
         String sql = String.format("INSERT INTO `%s`.materias(nombre,correlativas) VALUES (\"%s\",\"\")", db.getDBName(), nombre_materia);
-        System.out.println("SQL: " + sql);
         Statement stmt = db.getStatement();
         try {
             stmt.executeUpdate(sql);
         }
         catch (SQLException sqlExcept) {
-            System.out.println("No se pudo ejecutar el código sql.");
+            System.out.println("No se pudo ejecutar la sentencia:\n\t" + sql );
             System.out.println("Causa:\n\t" + sqlExcept);
         }
 
@@ -41,13 +40,12 @@ public class TpFinal {
         }
         //
         String sql = String.format("INSERT INTO `%s`.materias(nombre,correlativas) VALUES (\"%s\",\"%s\")", db.getDBName(), nombre_materia, materia_nueva.getStringCorrelativas());
-        System.out.println("SQL: " + sql);
         try {
             stmt.executeUpdate(sql);
             db.desconectar();
         }
         catch (SQLException sqlExcept) {
-            System.out.println("No se pudo ejecutar el sql");
+            System.out.println("No se pudo la sentencia: \n\t" + sql );
             System.out.println(sqlExcept);
         }
     }
@@ -97,6 +95,7 @@ public class TpFinal {
         db.conectar();
         Statement stmt = db.getStatement();
         String sql = "SELECT nombre,correlativas FROM `tp_final`.materias";
+        System.out.println("---------- LISTADO DE MATERIAS ----------");
         try {
             ResultSet rs = stmt.executeQuery(sql);
 //            System.out.println("Cantidad de resultados en la consulta de la tabla `materias`: "+ rs.getFetchSize());
@@ -104,9 +103,10 @@ public class TpFinal {
                 String nombre = rs.getString("nombre");
                 String correlativas = rs.getString("correlativas");
                 System.out.println(String.format("Materia: %s\tCorrelativas: %s", nombre, correlativas));
+                System.out.println("");
             }
+            System.out.println("----------------------------------------");
             db.desconectar();
-
         }
         catch (SQLException sqlExcept) {
             System.out.println("No se pudieron obtener los resultados.");
@@ -124,13 +124,15 @@ public class TpFinal {
         String sql = "SELECT * FROM `tp_final`.alumnos";
         try {
             ResultSet rs = stmt.executeQuery(sql);
-            System.out.println(rs.getFetchSize());
+            System.out.println("---------- LISTADO DE ALUMNOS ----------");
             while (rs.next()) {
                 String legajo = rs.getString("legajo");
                 String nombre = rs.getString("nombre");
                 String materias_aprobadas = rs.getString("materias_aprobadas");
                 System.out.println(String.format("Alumno: %s\tLegajo: %s\nMaterias aprobadas: %s", nombre,legajo, materias_aprobadas));
+                System.out.println("");
             }
+            System.out.println("----------------------------------------");
             db.desconectar();
         }
         catch (SQLException sqlExcept) {
@@ -166,9 +168,9 @@ public class TpFinal {
         //CREO UNA INSCRIPCION
         Inscripcion inscripcion = new Inscripcion(alumno,materia);
         if(inscripcion.aprobada()){
-            msj = "Inscripción aceptada";
+            msj = "\nInscripción aceptada\n";
         }else{
-            msj = "Inscripción rechazada";
+            msj = "\nInscripción rechazada\n";
         }
         return msj;
     }
@@ -218,22 +220,22 @@ public class TpFinal {
     //  MAIN
     //
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        Scanner scEleccion = new Scanner(System.in);
+        Scanner scDatos = new Scanner(System.in);
         boolean running = true;
         int eleccion;
         while (running) {
             System.out.println("1 - Agregar materia a la base de datos\n2 - Agregar alumno a la base de datos\n3 - Ver todos los alumnos\n4 - Ver todas las materias\n5 - Inscripción a materia \n6 - SALIR ");
-            eleccion = sc.nextInt();
+            eleccion = scEleccion.nextInt();
             switch (eleccion) {
                 case 1:
                     System.out.println("Ingrese el nombre de la materia");
-                    String nombre_materia = sc.next();
+                    String nombre_materia = scDatos.nextLine();
                     System.out.println("Posee correlativas?\n1 - Si\n2 - No");
-                    int con_correlativas = sc.nextInt();
+                    int con_correlativas = scEleccion.nextInt();
                     if (con_correlativas == 1) {
                         System.out.println("Ingrese los nombres de las correlativas separados por una \",\"");
-                        sc.reset();
-                        String nombres_correlativas = sc.next();
+                        String nombres_correlativas = scDatos.nextLine();
                         System.out.println("Nombres correlativas: " + nombres_correlativas);
                         ArrayList<String> correlativas = obtenerArrayListSTR(nombres_correlativas);
                         agregarMateria(nombre_materia, correlativas);
@@ -241,47 +243,43 @@ public class TpFinal {
                     else {
                         agregarMateria(nombre_materia);
                     }
-                    sc.reset();
+                    scDatos.reset();
                     break;
                 case 2:
                     System.out.println("Ingrese un legajo para el alumno. Números del 0-9, con un máximo de 5 digitos.");
-                    String legajo = sc.next();
-                    sc.reset();
+                    String legajo = scDatos.nextLine();
                     System.out.println("Ingrese un nombre para el alumno");
-                    String nombre = sc.next();
-                    sc.reset();
+                    String nombre = scDatos.nextLine();
+                    System.out.println("-------------------------------------------------");
+                    System.out.println("Nombre capturado por el Scanner: " + nombre );
+                    System.out.println("-------------------------------------------------");
                     System.out.println("Ingrese las materias aprobadas separadas por una \",\".\nSi no posee materias aprobadas solo pulse ENTER.");
-                    String aprobadas = sc.next();
-                    sc.reset();
+                    String aprobadas = scDatos.nextLine();
                     agregarAlumno(legajo, nombre, aprobadas);
                     break;
                 case 3:
                     verTodosLosAlumnos();
-                    sc.reset();
+                    scDatos.reset();
                     break;
                 case 4:
                     verTodasLasMaterias();
-                    sc.reset();
                     break;
                 case 5:
                     System.out.println("Ingrese su nombre: ");
-                    String nombre_alumno = sc.next();
-                    sc.reset();
+                    String nombre_alumno = scDatos.nextLine();
+                    scDatos.reset();
                     System.out.println("Ingrese el nombre de la materia: ");
-                    String materia = sc.next();
-                    sc.reset();
+                    String materia = scDatos.nextLine();
                     String respuestaInscripcion = inscripcionAMateria(nombre_alumno, materia);
                     System.out.println(respuestaInscripcion);
                     break;
                 case 6:
                     running = false;
-                    sc.reset();
                     System.out.println("Gracias por usar nuestro software.\nQue tenga un buen día.");
                     break;
                 default:
                     System.out.println("Opción no válida.");
                     System.out.println(eleccion);
-                    sc.reset();
                     break;
             }
         }
