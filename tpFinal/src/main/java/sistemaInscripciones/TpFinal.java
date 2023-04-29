@@ -10,7 +10,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import gui.FormAlumno;
 
 public class TpFinal {
 
@@ -221,9 +220,6 @@ public class TpFinal {
 //                    System.out.println("Ingrese las materias aprobadas separadas por una \",\".\nSi no posee materias aprobadas solo pulse ENTER.");
 //                    String aprobadas = scDatos.nextLine();
 //                    agregarAlumno(legajo, nombre, aprobadas);
-                    FormAlumno formAlumno = new FormAlumno();
-                    formAlumno.setVisible(true);
-                    formAlumno.setTitle("Carga de datos");
                     break;
                 case 3:
                     verTodosLosAlumnos();

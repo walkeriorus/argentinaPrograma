@@ -46,6 +46,7 @@ public class Database {
             this.conn = DriverManager.getConnection(this.urlDB,this.admin,this.adminPass);
             //Crea un Statement automaticamente al llamar al método conectar;
             this.createStatement();
+            System.out.println("Conexión a la base de datos establecida.");
         }catch(SQLException sqlExcept ){
             System.out.println("Fallo la conexión.");
             System.out.println(sqlExcept );
@@ -61,6 +62,7 @@ public class Database {
     private void createStatement(){
         try{
             this.stmt = this.conn.createStatement();
+            System.out.println("Statement creado.");
         }catch(SQLException sqlExcept){
             System.out.println("No se creo el Statement.");
             System.out.println(sqlExcept + "\nCódigo de error: "+sqlExcept.getErrorCode());
