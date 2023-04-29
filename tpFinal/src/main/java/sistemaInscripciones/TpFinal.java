@@ -10,6 +10,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import gui.FormAlumno;
+
 public class TpFinal {
 
     public static void agregarMateria(String nombre_materia) {
@@ -48,38 +50,6 @@ public class TpFinal {
             System.out.println("No se pudo la sentencia: \n\t" + sql );
             System.out.println(sqlExcept);
         }
-    }
-
-    public static void agregarAlumno(String legajo, String nombre, String materias_aprobadas) {
-        //Agrega un Alumno a la base de datos de alumnos.
-        //Conexión a la bd
-        //El String materias aprobadas sera un string de la forma: materia_1,materia_2
-        if (validarLegajo(legajo)) {
-            Database db = new Database();
-            db.conectar();
-            String sql = String.format("INSERT INTO alumnos VALUES (\"%s\",\"%s\",\"%s\")", legajo, nombre, materias_aprobadas);
-            //
-            boolean tiene_aprobadas = materias_aprobadas.length() > 0;
-            if (tiene_aprobadas) {
-                ArrayList<String> aprobadas = obtenerArrayListSTR(materias_aprobadas);
-            }
-            else {
-                String aprobadas = "";
-            }
-            Statement stmt = db.getStatement();
-            try {
-                stmt.executeUpdate(sql);
-                db.desconectar();
-            }
-            catch (SQLException sqlExcept) {
-                System.out.println("No se pudo ejecutar el sql\nUsuario: " + nombre + " no creado.");
-                System.out.println(sqlExcept);
-            }
-        }
-        else {
-            System.out.println("El legajo: `" + legajo + "` no es un nro de legajo válido.\nUsuario no creado");
-        }
-
     }
 
     public static ArrayList<String> obtenerArrayListSTR(String str) {
@@ -142,11 +112,6 @@ public class TpFinal {
 
     }
 
-    public static boolean validarLegajo(String legajo) {
-        //Válida que el String legajo sea un número que contenga de 1 a 5 digítos.
-        //Si el String pasa la validación retorna true, sino false.
-        return legajo.matches("[0-9]{1,5}");
-    }
     public static String inscripcionAMateria(String nombre_alumno,String nombre_materia){
         //MENSAJE
         String msj = null;
@@ -246,16 +211,19 @@ public class TpFinal {
                     scDatos.reset();
                     break;
                 case 2:
-                    System.out.println("Ingrese un legajo para el alumno. Números del 0-9, con un máximo de 5 digitos.");
-                    String legajo = scDatos.nextLine();
-                    System.out.println("Ingrese un nombre para el alumno");
-                    String nombre = scDatos.nextLine();
-                    System.out.println("-------------------------------------------------");
-                    System.out.println("Nombre capturado por el Scanner: " + nombre );
-                    System.out.println("-------------------------------------------------");
-                    System.out.println("Ingrese las materias aprobadas separadas por una \",\".\nSi no posee materias aprobadas solo pulse ENTER.");
-                    String aprobadas = scDatos.nextLine();
-                    agregarAlumno(legajo, nombre, aprobadas);
+//                    System.out.println("Ingrese un legajo para el alumno. Números del 0-9, con un máximo de 5 digitos.");
+//                    String legajo = scDatos.nextLine();
+//                    System.out.println("Ingrese un nombre para el alumno");
+//                    String nombre = scDatos.nextLine();
+//                    System.out.println("-------------------------------------------------");
+//                    System.out.println("Nombre capturado por el Scanner: " + nombre );
+//                    System.out.println("-------------------------------------------------");
+//                    System.out.println("Ingrese las materias aprobadas separadas por una \",\".\nSi no posee materias aprobadas solo pulse ENTER.");
+//                    String aprobadas = scDatos.nextLine();
+//                    agregarAlumno(legajo, nombre, aprobadas);
+                    FormAlumno formAlumno = new FormAlumno();
+                    formAlumno.setVisible(true);
+                    formAlumno.setTitle("Carga de datos");
                     break;
                 case 3:
                     verTodosLosAlumnos();
