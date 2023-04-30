@@ -25,7 +25,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         panel_1.setBackground(new java.awt.Color(255, 255, 255));
         panel_1.setMinimumSize(new java.awt.Dimension(468, 469));
-        panel_1.setPreferredSize(new java.awt.Dimension(468, 469));
+        panel_1.setPreferredSize(null);
         panel_1.setLayout(new java.awt.CardLayout());
 
         jMenuBar1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -66,7 +66,7 @@ public class MainWindow extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel_1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panel_1, javax.swing.GroupLayout.DEFAULT_SIZE, 634, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
