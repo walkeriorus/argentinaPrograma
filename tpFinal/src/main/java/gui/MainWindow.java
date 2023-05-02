@@ -16,6 +16,7 @@ public class MainWindow extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         menuSistema_AgregarAlumno = new javax.swing.JMenu();
         menuSistema_verMaterias = new javax.swing.JMenuItem();
+        menuSistema_agregarMateria = new javax.swing.JMenuItem();
         menuSistema_verAlumnos = new javax.swing.JMenuItem();
         menuSistema_agregarAlumno = new javax.swing.JMenuItem();
         menuAlumnos = new javax.swing.JMenu();
@@ -41,6 +42,14 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
         menuSistema_AgregarAlumno.add(menuSistema_verMaterias);
+
+        menuSistema_agregarMateria.setText("Agregar Materia");
+        menuSistema_agregarMateria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuSistema_agregarMateriaActionPerformed(evt);
+            }
+        });
+        menuSistema_AgregarAlumno.add(menuSistema_agregarMateria);
 
         menuSistema_verAlumnos.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         menuSistema_verAlumnos.setText("Ver alumnos");
@@ -114,6 +123,12 @@ public class MainWindow extends javax.swing.JFrame {
         cambiarPanel(panelMaterias);
         System.out.println("Menu Sistema, opción ver Materias.");
     }//GEN-LAST:event_menuSistema_verMateriasActionPerformed
+
+    private void menuSistema_agregarMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSistema_agregarMateriaActionPerformed
+        // TODO add your handling code here:
+        PanelMateria panelMateria = new PanelMateria();
+        cambiarPanel(panelMateria);
+    }//GEN-LAST:event_menuSistema_agregarMateriaActionPerformed
     public void cambiarPanel(JPanel panel) {
 
         panel_1.removeAll();
@@ -162,6 +177,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuAlumnos_Inscripcion;
     private javax.swing.JMenu menuSistema_AgregarAlumno;
     private javax.swing.JMenuItem menuSistema_agregarAlumno;
+    private javax.swing.JMenuItem menuSistema_agregarMateria;
     private javax.swing.JMenuItem menuSistema_verAlumnos;
     private javax.swing.JMenuItem menuSistema_verMaterias;
     private javax.swing.JPanel panel_1;
