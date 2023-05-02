@@ -7,15 +7,17 @@ public class MainWindow extends javax.swing.JFrame {
     public MainWindow() {
         initComponents();
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         panel_1 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        menuSistema = new javax.swing.JMenu();
+        menuSistema_AgregarAlumno = new javax.swing.JMenu();
         menuSistema_verMaterias = new javax.swing.JMenuItem();
         menuSistema_verAlumnos = new javax.swing.JMenuItem();
+        menuSistema_agregarAlumno = new javax.swing.JMenuItem();
         menuAlumnos = new javax.swing.JMenu();
         menuAlumnos_Inscripcion = new javax.swing.JMenuItem();
 
@@ -25,16 +27,20 @@ public class MainWindow extends javax.swing.JFrame {
 
         panel_1.setBackground(new java.awt.Color(255, 255, 255));
         panel_1.setMinimumSize(new java.awt.Dimension(468, 469));
-        panel_1.setPreferredSize(null);
         panel_1.setLayout(new java.awt.CardLayout());
 
         jMenuBar1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
-        menuSistema.setText("Sistema");
+        menuSistema_AgregarAlumno.setText("Sistema");
 
         menuSistema_verMaterias.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         menuSistema_verMaterias.setText("Ver materias");
-        menuSistema.add(menuSistema_verMaterias);
+        menuSistema_verMaterias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuSistema_verMateriasActionPerformed(evt);
+            }
+        });
+        menuSistema_AgregarAlumno.add(menuSistema_verMaterias);
 
         menuSistema_verAlumnos.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         menuSistema_verAlumnos.setText("Ver alumnos");
@@ -43,9 +49,17 @@ public class MainWindow extends javax.swing.JFrame {
                 menuSistema_verAlumnosActionPerformed(evt);
             }
         });
-        menuSistema.add(menuSistema_verAlumnos);
+        menuSistema_AgregarAlumno.add(menuSistema_verAlumnos);
 
-        jMenuBar1.add(menuSistema);
+        menuSistema_agregarAlumno.setText("Agregar Alumno");
+        menuSistema_agregarAlumno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuSistema_agregarAlumnoActionPerformed(evt);
+            }
+        });
+        menuSistema_AgregarAlumno.add(menuSistema_agregarAlumno);
+
+        jMenuBar1.add(menuSistema_AgregarAlumno);
 
         menuAlumnos.setText("Alumnos");
 
@@ -79,25 +93,36 @@ public class MainWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuAlumnos_InscripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAlumnos_InscripcionActionPerformed
-        System.out.println("Haciendo click el Alumnos");
-        PanelAlumno panelAlumno = new PanelAlumno();
-        cambiarPanel(panelAlumno);
-        System.out.println(panel_1.getClass().toString());
+
     }//GEN-LAST:event_menuAlumnos_InscripcionActionPerformed
 
     private void menuSistema_verAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSistema_verAlumnosActionPerformed
-        // TODO add your handling code here:
         VerAlumnos verAlumnos = new VerAlumnos();
         cambiarPanel(verAlumnos);
     }//GEN-LAST:event_menuSistema_verAlumnosActionPerformed
-    public void cambiarPanel(JPanel panel){
-        
+
+    private void menuSistema_agregarAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSistema_agregarAlumnoActionPerformed
+
+        PanelAlumno panelAlumno = new PanelAlumno();
+        cambiarPanel(panelAlumno);
+        System.out.println(panel_1.getClass().toString());
+    }//GEN-LAST:event_menuSistema_agregarAlumnoActionPerformed
+
+    private void menuSistema_verMateriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSistema_verMateriasActionPerformed
+        // TODO add your handling code here:
+        VerMaterias panelMaterias = new VerMaterias();
+        cambiarPanel(panelMaterias);
+        System.out.println("Menu Sistema, opción ver Materias.");
+    }//GEN-LAST:event_menuSistema_verMateriasActionPerformed
+    public void cambiarPanel(JPanel panel) {
+
         panel_1.removeAll();
         panel_1.add(panel);
         panel_1.repaint();
         panel_1.revalidate();
         panel_1.setVisible(true);
     }
+
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -135,7 +160,8 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu menuAlumnos;
     private javax.swing.JMenuItem menuAlumnos_Inscripcion;
-    private javax.swing.JMenu menuSistema;
+    private javax.swing.JMenu menuSistema_AgregarAlumno;
+    private javax.swing.JMenuItem menuSistema_agregarAlumno;
     private javax.swing.JMenuItem menuSistema_verAlumnos;
     private javax.swing.JMenuItem menuSistema_verMaterias;
     private javax.swing.JPanel panel_1;

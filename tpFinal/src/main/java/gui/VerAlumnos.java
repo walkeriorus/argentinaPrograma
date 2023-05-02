@@ -1,8 +1,11 @@
 package gui;
 
 import database.Database;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.ComponentOrientation;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.sql.ResultSet;
@@ -32,76 +35,78 @@ public class VerAlumnos extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void inicio() {
-        //Definir el Layout del Panel
-        int filas, columnas, hgap, vgap;
-//        GridLayout panelGrilla = new GridLayout();
-//        hgap = 10;
-//        vgap = 10;
-//        columnas = 1;
-        //Seteo la separación vertical y horizontal entre filas y columnas.
-//        panelGrilla.setHgap(hgap);
-//        panelGrilla.setVgap(vgap);
-        //Seteo la orientacion en que se disponen los elementos en el panel principal
-        //Con esto los elementos se van ubicando de izquierda a derecha y de arriba hacia abajo.
-//        setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-        //Conexion a la base de datos
+        int filas;
         Database db = new Database();
         db.conectar();
         Statement stmt = db.getStatement();
         String sql = "SELECT * FROM `tp_final`.alumnos";
         //Titulo del panel principal(Esto seria la primera fila dentro del panel)
         Font fuenteTitulos = new Font("Arial", 1, 14);
-        //Panel para los titulos de las columnas
-//        JPanel panelTitulos = panelGridLayout(1, 3);
+        //JPanel para el Titulo de las columnas
+        JPanel titulosColumnas = new JPanel();
+        titulosColumnas.setPreferredSize(new Dimension(1024,50));
+        titulosColumnas.setMaximumSize(new Dimension(1024,100));
+        titulosColumnas.setLayout(new GridLayout(1,3));
+        //Creo un separador horizontal
+        JSeparator separador_hor = new JSeparator();
+        separador_hor.setPreferredSize(new Dimension(1024,2));
+//        titulosColumnas.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+        //
         JLabel labelLegajo = new JLabel("Legajo");
         labelLegajo.setFont(fuenteTitulos);
         JLabel labelNombre = new JLabel("Nombre");
         labelNombre.setFont(fuenteTitulos);
         JLabel labelMaterias = new JLabel("Materias");
         labelMaterias.setFont(fuenteTitulos);
-//        panelTitulos.add(labelLegajo);
-//        panelTitulos.add(labelNombre);
-//        panelTitulos.add(labelMaterias);
-
+        //
+        titulosColumnas.add(labelLegajo);
+        titulosColumnas.add(labelNombre);
+        titulosColumnas.add(labelMaterias);
+        add(titulosColumnas,"North");
+        
+        //Panel para poner las filas de información de cada alumno,tendra un GridLayout
+        JPanel panelCampos = new JPanel();
+        panelCampos.setPreferredSize(new Dimension(1024,620));
         try {
             //Consulta para determinar la cantidad de alumnos en la tabla alumnos.
-//            ResultSet count = stmt.executeQuery("SELECT COUNT(legajo)FROM alumnos");
-//            if (count.next()) {
-//                filas = count.getInt(1);
-//                count.close();
-//                //Sabiendo la cantidad de filas defino la grilla del panel principal
-////                panelGrilla.setRows(filas);
-////                panelGrilla.setColumns(columnas);
-////                setLayout(panelGrilla);
-//            }
-            //Consulta para obtener los datos de todos los alumnos en la tabla alumnos.
-            ResultSet rs = stmt.executeQuery(sql);
-            //Agrego el panelTitulos
-//            add(panelTitulos);
-            //Creación de las filas con la información sacada de la base de datos
-            while (rs.next()) {
-                //Por cada registro que viene en el ResultSet se crean 3 JLabel
-                //con el contenido de los campos "legajo","nombre"y"materias_aprobadas"
-                //de la tabla alumnos.
-                String leg = rs.getString("legajo");
-                String name = rs.getString("nombre");
-                String mats = rs.getString("materias_aprobadas");
-                JLabel lleg = new JLabel(leg);
-                JLabel lname = new JLabel(name);
-                JLabel lmats = new JLabel(mats);
-                //Creo un JPanel con GridLayout de 1 fila y 3 columnas
-                JPanel rowPanel = panelGridLayout(1, 3);
-                //Se agregan todos los JLabels creados al JPanel usando el método
-                //add( Component );
-                rowPanel.add(lleg);
-                rowPanel.add(lname);
-                rowPanel.add(lmats);
-                //Agrego el elemento rowPanel al panel principal
-                add(rowPanel);
-                add(new JSeparator());
+            ResultSet count = stmt.executeQuery("SELECT COUNT(legajo)FROM alumnos");
+            if (count.next()) {
+                filas = count.getInt(1);
+                count.close();
+                
+                panelCampos.setLayout(new GridLayout(filas,3));
+                //Consulta para obtener los datos de todos los alumnos en la tabla alumnos.
+                ResultSet rs = stmt.executeQuery(sql);
+                //Creación de las filas con la información sacada de la base de datos
+                Dimension dimensionesFilas = new Dimension(1024/3,(720-50)/filas);
+                while (rs.next()) {
+                    //Por cada registro que viene en el ResultSet se crean 3 JLabel
+                    //con el contenido de los campos "legajo","nombre"y"materias_aprobadas"
+                    //de la tabla alumnos.
+                    String leg = rs.getString("legajo");
+                    String name = rs.getString("nombre");
+                    String mats = rs.getString("materias_aprobadas");
+                    JLabel lleg = new JLabel(leg);
+                    lleg.setPreferredSize(dimensionesFilas);
+                    lleg.setFont(fuenteTitulos);
+                    JLabel lname = new JLabel(name);
+                    lname.setPreferredSize(dimensionesFilas);
+                    lname.setFont(fuenteTitulos);
+                    JLabel lmats = new JLabel(mats);
+                    lmats.setPreferredSize(dimensionesFilas);
+                    lmats.setFont(fuenteTitulos);
+                    //Agrego los JLabels creados al JPanel panelCampos usando el método add()
+                    panelCampos.add(lleg);
+                    panelCampos.add(lname);
+                    panelCampos.add(lmats);
+
+                }
+                
+                //
+                add(panelCampos,"South");
+                System.out.println("Layout del panel principal: " + getLayout().toString());
+                db.desconectar();
             }
-            System.out.println("Layout del panel principal: " + getLayout().toString());
-            db.desconectar();
         }
         catch (SQLException sqlExc) {
             System.out.println("Error");

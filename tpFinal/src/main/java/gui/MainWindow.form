@@ -9,7 +9,7 @@
         </Property>
       </Properties>
       <SubComponents>
-        <Menu class="javax.swing.JMenu" name="menuSistema">
+        <Menu class="javax.swing.JMenu" name="menuSistema_AgregarAlumno">
           <Properties>
             <Property name="text" type="java.lang.String" value="Sistema"/>
           </Properties>
@@ -21,6 +21,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Ver materias"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuSistema_verMateriasActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuSistema_verAlumnos">
               <Properties>
@@ -31,6 +34,14 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuSistema_verAlumnosActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="menuSistema_agregarAlumno">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Agregar Alumno"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuSistema_agregarAlumnoActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -103,9 +114,6 @@
         </Property>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[468, 469]"/>
-        </Property>
-        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="null"/>
         </Property>
       </Properties>
 
